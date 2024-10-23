@@ -46,7 +46,7 @@ function Navbar() {
               <Link to={"/"}>Home</Link>
             </li>
             <li>
-              <Link to={"/products"}>Products</Link>
+              <Link to={"/products"}>All Products</Link>
             </li>
           </ul>
         </div>
@@ -63,7 +63,7 @@ function Navbar() {
             <Link to={"/"}>Home</Link>
           </li>
           <li className="text-lg">
-            <Link to={"/products"}>Products</Link>
+            <Link to={"/products"}>All Products</Link>
           </li>
         </ul>
       </div>

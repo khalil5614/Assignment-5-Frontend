@@ -4,8 +4,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
-  const { currentUser, logIn, logInWithGoogle, logInWithGithub } =
-    useContext(AuthContext);
+  const { currentUser, logIn } = useContext(AuthContext);
   console.log("Current User= ", currentUser);
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,38 +26,10 @@ const LoginPage = () => {
           position: "top-right",
         });
 
-        navigate(location?.state ? location.state : "/products");
+        navigate(location?.state ? location.state : "/dashboard");
       })
       .catch((error) => {
         console.log("Login error", error);
-      });
-  };
-
-  const handlelogInWithGoogle = () => {
-    logInWithGoogle()
-      .then(() => {
-        toast.success("User Login Successfully", {
-          position: "top-right",
-        });
-
-        navigate(location?.state ? location.state : "/products");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handlelogInWithGithub = () => {
-    logInWithGithub()
-      .then((result) => {
-        toast.success("User Login Successfully with Github", {
-          position: "top-right",
-        });
-
-        navigate(location?.state ? location.state : "/products");
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -116,7 +87,7 @@ const LoginPage = () => {
                 </span>
               </button> */}
             </div>
-            <div className="form-control mt-6">
+            {/* <div className="form-control mt-6">
               <div className="py-3 flex items-center text-sm text-gray-800 before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-white dark:before:border-neutral-600 dark:after:border-neutral-600">
                 Or Login with
               </div>
@@ -135,7 +106,7 @@ const LoginPage = () => {
               >
                 Sign in with GitHub
               </button>
-            </div>
+            </div> */}
 
             <p className="text-center mt-5">
               <span>Don't have an account? </span>

@@ -1,12 +1,9 @@
 import {
   getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  GithubAuthProvider,
 } from "firebase/auth";
 
 import React, { createContext, useEffect, useState } from "react";
@@ -14,10 +11,6 @@ import app from "../Firebase/firebase.config";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const googleAuthProvider = new GoogleAuthProvider();
-  const githubAuthProvider = new GithubAuthProvider();
-  //githubAuthProvider.addScope("repo");
-
   const auth = getAuth(app);
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
@@ -77,15 +70,6 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logInWithGoogle = () => {
-    setLoading(true);
-    return signInWithPopup(auth, googleAuthProvider);
-  };
-  const logInWithGithub = () => {
-    setLoading(true);
-    return signInWithPopup(auth, githubAuthProvider);
-  };
-
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -97,6 +81,11 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
+    if (currentUser?.displayName) {
+      console.log("Current User: ", currentUser);
+      console.log("Display Name:", currentUser.displayName);
+    }
+
     return stateDataChanged;
   }, []);
 
@@ -105,8 +94,6 @@ const AuthProvider = ({ children }) => {
     loading,
     signup,
     logIn,
-    logInWithGoogle,
-    logInWithGithub,
     logOut,
   };
   return (

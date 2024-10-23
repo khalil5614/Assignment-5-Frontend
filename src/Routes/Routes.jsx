@@ -7,6 +7,10 @@ import ErrorPage from "../Pages/ErrorPage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
+import DashBoardLayout from "../Componenets/shared/DashBoardLayout";
+import ProfilePage from "../Pages/DashBoard/ProfilePage";
+import AllUsersPage from "../Pages/DashBoard/AllUsersPage";
+import Utils from "../utils/Utils";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +30,15 @@ const router = createBrowserRouter([
             <ProductsPage />,
           </PrivateRoute>
         ),
-        loader: () =>
-          fetch("https://assignment-4-server-side-code.vercel.app/api/courses"),
+        loader: () => fetch(Utils.CourseListUrl),
       },
 
       {
         path: "/products/:id",
         loader: ({ params }) =>
           fetch(
-            `https://assignment-4-server-side-code.vercel.app/api/courses/${params.id}`
+            Utils.CourseDetailsURL(params.id)
+            //  `https://assignment-4-server-side-code.vercel.app/api/courses/${params.id}`
           ),
         element: <ProductDetailsPage />,
       },
@@ -47,6 +51,24 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout />,
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <ProfilePage />,
+      },
+      {
+        path: "AllUsers",
+        element: <AllUsersPage />,
+      },
+    ],
   },
 ]);
 

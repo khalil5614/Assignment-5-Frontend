@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const RegisterPage = () => {
-  const { registerWithEmail } = useContext(AuthContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,7 +98,7 @@ const RegisterPage = () => {
         <div className="card w-full max-w-xl  ">
           <form className="card-body" onSubmit={handleSignup}>
             <h1 className="text-4xl font-extrabold text-center mb-4">
-              Please Register First!
+              Register Yourself
             </h1>
 
             {/* Display error message */}
