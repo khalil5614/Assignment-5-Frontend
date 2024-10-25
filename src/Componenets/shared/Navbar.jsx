@@ -70,12 +70,13 @@ function Navbar() {
       <div className="navbar-end">
         {currentUser ? (
           <div className="flex  items-center gap-1">
-            <div
-              onClick={handleLogOut}
+            <Link
+              //onClick={handleLogOut}
+              to={"/dashboard"}
               className="btn btn-secondary px-5 lg:px-10 h-10"
             >
               <MdDashboard />
-            </div>
+            </Link>
           </div>
         ) : (
           <Link to={"/login"} className="btn btn-secondary px-10 h-10">

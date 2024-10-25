@@ -20,12 +20,12 @@ const RegisterPage = () => {
   const handleSignup = (event) => {
     event.preventDefault();
 
-    const form = new FormData(event.currentTarget);
-    console.log(form);
+    // const form = new FormData(event.currentTarget);
+    // console.log(form);
 
     // const email = form.get("email");
     //    const password = form.get("password");
-    console.log(email, password);
+    //  console.log(email, password);
 
     signup({ email, password, name, phoneNumber, address, photo })
       .then((result) => {

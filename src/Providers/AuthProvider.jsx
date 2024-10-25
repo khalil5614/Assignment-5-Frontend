@@ -8,11 +8,12 @@ import {
 
 import React, { createContext, useEffect, useState } from "react";
 import app from "../Firebase/firebase.config";
+import Utils from "../utils/Utils";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const signup = async ({
@@ -35,7 +36,7 @@ const AuthProvider = ({ children }) => {
       );
       const newUser = userCredential.user;
 
-      const response = await fetch("http://localhost:5000/users", {
+      const response = await fetch(Utils.ALL_USERS_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,18 +77,63 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const stateDataChanged = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const stateDataChanged = onAuthStateChanged(auth, async (currentUser) => {
+      setCurrentUser(currentUser);
       setLoading(false);
-    });
+      console.log("Current User  onAuthStateChanged");
+      console.log("Current User  onAuthStateChanged", currentUser);
+      if (
+        currentUser != null &&
+        (currentUser.displayName == null ||
+          currentUser.displayName === "" ||
+          currentUser.displayName === "undefined")
+      ) {
+        console.log("Display Name:", currentUser.displayName);
 
-    if (currentUser?.displayName) {
-      console.log("Current User: ", currentUser);
-      console.log("Display Name:", currentUser.displayName);
-    }
+        try {
+          const res = await fetch(
+            Utils.USER_DETAILS_URL({ user_id: currentUser.uid })
+          );
+
+          const data = await res.json();
+          setCurrentUser(data);
+        } catch (error) {
+          console.error("Error fetching user data:", error.message);
+        }
+        setLoading(false);
+      }
+    });
 
     return stateDataChanged;
   }, []);
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+  //     console.log("Current User  onAuthStateChanged", currentUser);
+  //     if (currentUser) {
+  //       try {
+  //         const res = await fetch(
+  //           `https://the-master-full-stack-project-server.vercel.app/user/${currentUser.uid}`
+  //         );
+
+  //         if (!res.ok) {
+  //           throw new Error("Failed to fetch user data.");
+  //         }
+
+  //         const data = await res.json();
+  //         setCurrentUser(data);
+  //       } catch (error) {
+  //         console.error("Error fetching user data:", error.message);
+  //       }
+  //     } else {
+  //       setCurrentUser(null);
+  //     }
+  //   });
+
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [auth]);
 
   const authInfo = {
     currentUser,

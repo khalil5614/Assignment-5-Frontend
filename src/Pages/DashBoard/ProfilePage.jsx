@@ -3,7 +3,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { FiEdit } from "react-icons/fi";
 
 const ProfilePage = () => {
-  const { user } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     displayName: "",
@@ -15,14 +15,14 @@ const ProfilePage = () => {
   const handleUpdate = async () => {
     try {
       const updatedUser = {
-        ...user,
+        ...currentUser,
         displayName: formData.displayName,
         phone: formData.phone,
         photoUrl: formData.photoUrl,
         address: formData.address,
       };
 
-      // Make API call to update user information
+      // Make API call to update currentUser information
       const response = await fetch(
         `https://the-master-full-stack-project-server.vercel.app/user/${user._id}`,
         {
@@ -49,10 +49,10 @@ const ProfilePage = () => {
   // Open the edit modal with the user's current details
   const handleOpenEditModal = () => {
     setFormData({
-      displayName: user.displayName || "",
-      phone: user.phone || "",
-      photoUrl: user.photoUrl || "",
-      address: user.address || "",
+      displayName: currentUser.displayName || "",
+      phone: currentUser.phone || "",
+      photoUrl: currentUser.photoUrl || "",
+      address: currentUser.address || "",
     });
     setIsEditModalOpen(true);
   };
@@ -61,19 +61,21 @@ const ProfilePage = () => {
     <div className="p-6 bg-white rounded-lg shadow-lg relative">
       <div className="flex flex-col items-center">
         <img
-          src={user?.photoUrl}
+          src={currentUser?.photoUrl}
           alt="Profile"
           className="w-36 h-36 object-cover rounded-full shadow-md"
         />
         <h2 className="mt-4 text-2xl font-bold text-gray-800">
-          {user?.displayName}
+          {currentUser?.displayName}
         </h2>
-        <p className="text-gray-500">{user?.email}</p>
+        <p className="text-gray-500">{currentUser?.email}</p>
         <div>
           <strong
-            className={!user?.isBlocked ? "text-green-500" : "text-red-500"}
+            className={
+              !currentUser?.isBlocked ? "text-green-500" : "text-red-500"
+            }
           >
-            {!user?.isBlocked ? "Active" : "Blocked"}
+            {!currentUser?.isBlocked ? "Active" : "Blocked"}
           </strong>
         </div>
       </div>
@@ -83,26 +85,29 @@ const ProfilePage = () => {
         <hr />
         <ul className="mt-3 text-gray-600 space-y-2">
           <li>
-            <strong>Role:</strong> {user?.isAdmin ? "Admin" : "User"}
+            <strong>Name:</strong> {currentUser?.displayName}
           </li>
           <li>
-            <strong>Email:</strong> {user?.email}
+            <strong>Role:</strong> {currentUser?.isAdmin ? "Admin" : "User"}
           </li>
           <li>
-            <strong>Phone:</strong> {user?.phone || "N/A"}
+            <strong>Email:</strong> {currentUser?.email}
           </li>
           <li>
-            <strong>Address:</strong> {user?.address || "N/A"}
+            <strong>Phone:</strong> {currentUser?.phone || "N/A"}
+          </li>
+          <li>
+            <strong>Address:</strong> {currentUser?.address || "N/A"}
           </li>
           <hr />
           <li>
-            <strong>Unique ID:</strong> {user?.uid}
+            <strong>Unique ID:</strong> {currentUser?.uid}
           </li>
         </ul>
       </div>
 
       {/* Edit Button with React Icon */}
-      {!user?.isBlocked ? (
+      {!currentUser?.isBlocked ? (
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-blue-600 transition-transform transform hover:scale-105"
           onClick={handleOpenEditModal}

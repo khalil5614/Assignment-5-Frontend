@@ -1,8 +1,22 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const DashBoardLayout = () => {
+  const { logOut } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <div className="drawer">
@@ -63,13 +77,16 @@ const DashBoardLayout = () => {
               <Link to={"/dashboard"}>Profile</Link>
             </li>
             <li>
-              <Link to={"/dashboard/AllUsers"}>All Users</Link>
+              <Link to={"/dashboard/allusers"}>All Users</Link>
             </li>
             <li>
-              <Link to={"/dashboard/AllCategories"}>All Categories</Link>
+              <Link to={"/dashboard/allcategories"}>All Categories</Link>
             </li>
             <li>
-              <Link to={"/dashboard/AllProducts"}>All Products</Link>
+              <Link to={"/dashboard/allproducts"}>All Products</Link>
+            </li>
+            <li>
+              <Link onClick={handleLogOut}>Log Out</Link>
             </li>
           </ul>
         </div>

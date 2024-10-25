@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const { currentUser, logIn } = useContext(AuthContext);
-  console.log("Current User= ", currentUser);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,15 +13,13 @@ const LoginPage = () => {
     event.preventDefault();
 
     const form = new FormData(event.currentTarget);
-    console.log(form);
 
     const email = form.get("email");
     const password = form.get("password");
-    console.log(email, password);
 
     logIn({ email: email, password: password })
       .then((result) => {
-        console.log(result.user);
+        console.log("login user", result.user);
         toast.success("User Login Successfully", {
           position: "top-right",
         });

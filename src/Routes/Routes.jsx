@@ -11,6 +11,7 @@ import DashBoardLayout from "../Componenets/shared/DashBoardLayout";
 import ProfilePage from "../Pages/DashBoard/ProfilePage";
 import AllUsersPage from "../Pages/DashBoard/AllUsersPage";
 import Utils from "../utils/Utils";
+import AllCategoriesPage from "../Pages/DashBoard/AllCategoriesPage";
 
 const router = createBrowserRouter([
   {
@@ -65,8 +66,20 @@ const router = createBrowserRouter([
         element: <ProfilePage />,
       },
       {
-        path: "AllUsers",
+        path: "profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "allusers",
         element: <AllUsersPage />,
+      },
+      {
+        path: "allcategories",
+        element: <AllCategoriesPage />,
+      },
+      {
+        path: "allproducts",
+        element: <AllCategoriesPage />,
       },
     ],
   },
