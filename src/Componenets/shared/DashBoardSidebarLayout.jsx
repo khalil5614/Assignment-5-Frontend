@@ -1,13 +1,7 @@
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
-import {
-  FaUser,
-  FaUsers,
-  FaEnvelope,
-  FaSignOutAlt,
-  FaPenAlt,
-} from "react-icons/fa";
+import { FaUser, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 

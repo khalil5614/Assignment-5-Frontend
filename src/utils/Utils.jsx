@@ -22,6 +22,7 @@ const ALL_PRODUCTS_BY_CATEGORIES_URL = ({ category }) => {
   return `${BASE_URL}/api/categories/products/${category}`;
 };
 
+const BUY_PRODUCT = `${BASE_URL}/api/buy`;
 const ALL_ORDERS_URL = `${BASE_URL}/api/orders`;
 
 const ORDER_DETAILS_URL = ({ id }) => {
@@ -43,6 +44,7 @@ const Utils = {
   ALL_PRODUCTS_URL,
   PRODUCT_DETAILS_URL,
   ALL_PRODUCTS_BY_CATEGORIES_URL,
+  BUY_PRODUCT,
   ALL_ORDERS_URL,
   ORDER_DETAILS_URL,
   ALL_ORDERS_BY_USER_URL,

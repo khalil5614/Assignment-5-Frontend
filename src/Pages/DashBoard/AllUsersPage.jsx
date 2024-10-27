@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaUserShield } from "react-icons/fa";
-import { ImBlocked } from "react-icons/im";
 import Utils from "../../utils/Utils";
+import { MdDeleteForever } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const AllUsersPage = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAdminToggleModalOpen, setIsAdminToggleModalOpen] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -33,29 +34,29 @@ const AllUsersPage = () => {
     fetchUsers(); // Load users when the component mounts
   }, []);
 
-  // Block a user
-  const handleBlock = async () => {
-    try {
-      console.log({ selectedUser });
-      const updatedUser = {
-        ...selectedUser,
-        isBlocked: !selectedUser?.isBlocked,
-      };
-      console.log({ updatedUser });
+  // // Block a user
+  // const handleBlock = async () => {
+  //   try {
+  //     console.log({ selectedUser });
+  //     const updatedUser = {
+  //       ...selectedUser,
+  //       isBlocked: !selectedUser?.isBlocked,
+  //     };
+  //     console.log({ updatedUser });
 
-      await fetch(Utils.USER_DETAILS_URL({ user_id: selectedUser.uid }), {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-      });
-      fetchUsers(); // Reload users after update
-      setIsBlockModalOpen(false);
-    } catch (error) {
-      console.error("Error blocking/unblocking user:", error);
-    }
-  };
+  //     await fetch(Utils.USER_DETAILS_URL({ user_id: selectedUser.uid }), {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(updatedUser),
+  //     });
+  //     fetchUsers(); // Reload users after update
+  //     setIsBlockModalOpen(false);
+  //   } catch (error) {
+  //     console.error("Error blocking/unblocking user:", error);
+  //   }
+  // };
 
   // Toggle admin status
   const handleToggleAdmin = async () => {
@@ -115,15 +116,34 @@ const AllUsersPage = () => {
     }
   };
 
-  const handleClickedSetBlock = (user) => {
+  const handleDeleteUserClicked = (user) => {
     setSelectedUser(user);
-    setIsBlockModalOpen(true);
+    setIsDeleteModalOpen(true);
   };
   const handleClickedSetUserOrAdminRole = (user) => {
     setSelectedUser(user);
     setIsAdminToggleModalOpen(true);
   };
 
+  const handleDeleteClick = async () => {
+    try {
+      const response = await fetch(
+        Utils.USER_DETAILS_URL({ user_id: selectedUser.uid }),
+        {
+          method: "DELETE",
+        }
+      );
+      fetchUsers();
+      setIsDeleteModalOpen(false);
+      if (response.ok) {
+        toast.success("User Deleted Successfully", {
+          position: "top-right",
+        });
+      }
+    } catch (error) {
+      console.error("Error in deleting user:", error);
+    }
+  };
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Users List</h2>
@@ -182,16 +202,16 @@ const AllUsersPage = () => {
                   <FaEdit />
                 </button>
                 <button
-                  onClick={() => handleClickedSetBlock(user)}
+                  onClick={() => handleDeleteUserClicked(user)}
                   className={`p-2 rounded-full bg-red-500 text-white ${
                     user.email === "superadmin@codecloud.com"
                       ? "opacity-50 cursor-not-allowed"
                       : ""
                   }`}
-                  title="Block User"
+                  title="Delete User"
                   disabled={user.email === "superadmin@codecloud.com"}
                 >
-                  <ImBlocked />
+                  <MdDeleteForever />
                 </button>
               </td>
             </tr>
@@ -266,24 +286,19 @@ const AllUsersPage = () => {
       )}
 
       {/* Block Modal */}
-      {isBlockModalOpen && (
+      {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg w-1/3">
-            <h3 className="text-xl mb-4">
-              {selectedUser.isBlocked
-                ? "Unblock this user?"
-                : "Block this user?"}
-            </h3>
+            <h1 className="text-xl mb-4">Delete User</h1>
+            <h4 className="my-7">Are you sure you want to delete User?</h4>
             <button
-              onClick={handleBlock}
-              className={`bg-red-500 text-white px-4 py-2 rounded ${
-                selectedUser.isBlocked ? "bg-green-500" : "bg-red-500"
-              }`}
+              onClick={() => handleDeleteClick()}
+              className={`bg-red-500 text-white px-4 py-2 rounded`}
             >
-              {selectedUser.isBlocked ? "Unblock" : "Block"}
+              Delete
             </button>
             <button
-              onClick={() => setIsBlockModalOpen(false)}
+              onClick={() => setIsDeleteModalOpen(false)}
               className="bg-gray-500 text-white px-4 py-2 rounded ml-4"
             >
               Cancel

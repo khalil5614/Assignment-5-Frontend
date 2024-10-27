@@ -125,6 +125,7 @@ const AllProductsPage = () => {
           thumbnailUrl: formData.thumbnailUrl,
           ratings: formData.ratings,
           price: formData.price,
+          category: selectedCategory,
         }),
       });
       console.log(response);
@@ -304,7 +305,7 @@ const AllProductsPage = () => {
                   Select a Category
                 </option>
                 {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
+                  <option key={category._id} value={category.title}>
                     {category.title}
                   </option>
                 ))}
@@ -405,7 +406,7 @@ const AllProductsPage = () => {
                   Select a Category
                 </option>
                 {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
+                  <option key={category._id} value={category.title}>
                     {category.title}
                   </option>
                 ))}
