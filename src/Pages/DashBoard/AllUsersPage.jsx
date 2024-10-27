@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaUserShield } from "react-icons/fa";
 import Utils from "../../utils/Utils";
 import { MdDeleteForever } from "react-icons/md";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const AllUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -10,6 +11,7 @@ const AllUsersPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAdminToggleModalOpen, setIsAdminToggleModalOpen] = useState(false);
+  const { deleteUser } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     displayName: "",
@@ -127,6 +129,7 @@ const AllUsersPage = () => {
 
   const handleDeleteClick = async () => {
     try {
+      deleteUser(selectedUser);
       const response = await fetch(
         Utils.USER_DETAILS_URL({ user_id: selectedUser.uid }),
         {
@@ -254,7 +257,7 @@ const AllUsersPage = () => {
                 className="w-full p-2 border rounded"
                 value={formData.photoURL}
                 onChange={(e) =>
-                  setFormData({ ...formData, photoUrl: e.target.value })
+                  setFormData({ ...formData, photoURL: e.target.value })
                 }
               />
             </div>

@@ -75,6 +75,10 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+  const deleteUser = ({ user }) => {
+    setLoading(true);
+    return deleteUser(user);
+  };
 
   useEffect(() => {
     const stateDataChanged = onAuthStateChanged(auth, async (currentUser) => {
@@ -141,6 +145,7 @@ const AuthProvider = ({ children }) => {
     signup,
     logIn,
     logOut,
+    deleteUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

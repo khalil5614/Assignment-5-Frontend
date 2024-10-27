@@ -33,7 +33,7 @@ const RegisterPage = () => {
         toast.success("User Signup Successfully", {
           position: "top-right",
         });
-        navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/login");
       })
       .catch((error) => {
         console.log("Signup error", error);

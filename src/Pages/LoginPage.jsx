@@ -28,6 +28,7 @@ const LoginPage = () => {
       })
       .catch((error) => {
         console.log("Login error", error);
+        toast.error(error.message);
       });
   };
 
