@@ -1,4 +1,4 @@
-const BASE_URL = "https://codecloud-woad.vercel.app/";
+const BASE_URL = "https://codecloud-woad.vercel.app";
 //const BASE_URL = "http://localhost:5000";
 
 const ALL_USERS_URL = `${BASE_URL}/api/users`;
