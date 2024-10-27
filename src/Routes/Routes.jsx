@@ -12,6 +12,8 @@ import ProfilePage from "../Pages/DashBoard/ProfilePage";
 import AllUsersPage from "../Pages/DashBoard/AllUsersPage";
 import Utils from "../utils/Utils";
 import AllCategoriesPage from "../Pages/DashBoard/AllCategoriesPage";
+import AllProductsPage from "../Pages/DashBoard/AllProducts";
+import MyProductsPage from "../Pages/DashBoard/MyProducts";
 
 const router = createBrowserRouter([
   {
@@ -31,16 +33,13 @@ const router = createBrowserRouter([
             <ProductsPage />,
           </PrivateRoute>
         ),
-        loader: () => fetch(Utils.CourseListUrl),
+        loader: () => fetch(Utils.ALL_PRODUCTS_URL),
       },
 
       {
         path: "/products/:id",
         loader: ({ params }) =>
-          fetch(
-            Utils.CourseDetailsURL(params.id)
-            //  `https://assignment-4-server-side-code.vercel.app/api/courses/${params.id}`
-          ),
+          fetch(Utils.PRODUCT_DETAILS_URL({ id: params.id })),
         element: <ProductDetailsPage />,
       },
     ],
@@ -79,7 +78,11 @@ const router = createBrowserRouter([
       },
       {
         path: "allproducts",
-        element: <AllCategoriesPage />,
+        element: <AllProductsPage />,
+      },
+      {
+        path: "myproducts",
+        element: <MyProductsPage />,
       },
     ],
   },

@@ -5,6 +5,8 @@ function Ratings({ ratings }) {
 
   return (
     <div className="flex items-center">
+      <span className="font-bold">{ratings} </span>
+
       <div>
         {[1, 2, 3, 4, 5].map((star) => {
           return (
@@ -21,7 +23,6 @@ function Ratings({ ratings }) {
           );
         })}
       </div>
-      <span>({ratings})</span>
     </div>
   );
 }

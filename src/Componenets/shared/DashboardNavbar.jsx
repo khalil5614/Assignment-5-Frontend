@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { MdDashboard } from "react-icons/md";
 
-function Navbar() {
+function DashboardNavbar() {
   const { currentUser, logOut } = useContext(AuthContext);
   console.log("Current User= ", currentUser);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-gray-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -38,17 +38,6 @@ function Navbar() {
               />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <Link to={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link to={"/products"}>Products</Link>
-            </li>
-          </ul>
         </div>
         <Link to={"/"}>
           <div className="btn btn-ghost justify-start">
@@ -57,40 +46,18 @@ function Navbar() {
           </div>
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-5">
-          <li className="mx-1 text-lg">
-            <Link to={"/"}>Home</Link>
-          </li>
-          <li className="text-lg">
-            <Link to={"/products"}>All Products</Link>
-          </li>
-        </ul>
-      </div>
       <div className="navbar-end">
-        <input
-          type="checkbox"
-          value="dark"
-          className="toggle theme-controller mr-2"
-        />
-
-        {currentUser ? (
-          <div className="flex  items-center gap-1">
-            <Link
-              //onClick={handleLogOut}
-              to={"/dashboard"}
-            >
-              <MdDashboard className="size-7" />
-            </Link>
-          </div>
-        ) : (
-          <Link to={"/login"} className="btn btn-secondary px-10 h-10">
-            Log In
+        <div className="flex  items-center gap-1">
+          <Link
+            onClick={handleLogOut}
+            className="btn btn-secondary px-5 lg:px-10 h-10"
+          >
+            Log Out
           </Link>
-        )}
+        </div>
       </div>
     </div>
   );
 }
 
-export default Navbar;
+export default DashboardNavbar;
