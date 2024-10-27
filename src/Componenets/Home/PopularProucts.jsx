@@ -35,7 +35,7 @@ const PopularProucts = () => {
   return (
     <div>
       <h1 className="text-3xl text-center font-bold mt-12 mb-2">
-        Popular Courses
+        Best Selling Courses
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {popularCourses.map((course, index) => (

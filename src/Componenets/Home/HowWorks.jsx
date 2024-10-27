@@ -4,54 +4,54 @@ import Procedure from "./Procedure";
 const HowWorks = () => {
   const procedureList = [
     {
-      title: "1. Browse Courses",
+      title: "1. What is Code Cloud?",
       details:
-        "Explore our wide range of IT training courses by browsing through categories or using the search bar to find the course that best suits your needs. You can filter courses by skill level, technology, or certification path.",
+        "Code Cloud is an online platform where users can purchase and access a wide range of courses on various topics. It allows instructors to create, publish, and sell courses, while learners can browse, enroll, and study at their own pace.",
     },
     {
-      title: "2. Select a Course",
-      details:
-        "Click on any course to view detailed information, including the curriculum, instructor details, and course duration. You’ll also find reviews and ratings from other students to help guide your decision.",
+      title: "2. How do I create an account?",
+      details: `To create an account, click on the "Sign Up" button on the homepage, enter your details, and verify your email address. Once registered, you can start purchasing courses or, if you’re an instructor, creating courses.`,
     },
     {
-      title: "3. Enroll in a Course",
-      details:
-        "Once you have found the right course, click the Enroll Now button. You can choose between free courses, one-time payments, or subscription-based options depending on the course type.",
+      title: "3. How can I purchase a course?",
+      details: `To purchase a course:
+
+Browse through the available courses or use the search bar to find specific ones.
+Click on the course you want to buy, and then click "Enroll."
+Complete the payment process via credit card, PayPal, or other supported payment methods.
+Once payment is confirmed, the course will be available in your dashboard.`,
     },
     {
-      title: "4. Create an Account",
-      details:
-        "If you’re new, you’ll be prompted to create an account. Simply fill in your name, email, and password to get started. If you already have an account, log in with your existing credentials.",
+      title: "4. Can I get a refund?",
+      details: `Yes, we offer a [number]-day money-back guarantee on all courses. If you're not satisfied, you can request a refund within this period, provided you haven’t completed more than [percentage] of the course content. Please refer to our refund policy for more details.`,
     },
     {
-      title: "5. Start Learning",
-      details:
-        "Once enrolled, you’ll have immediate access to all course materials, including video tutorials, quizzes, and downloadable resources. You can learn at your own pace and track your progress from your personal dashboard.",
+      title: "5. How can I access my courses?",
+      details: `After purchasing a course, it will be added to your dashboard. You can access the course materials by logging into your account and navigating to the "My Courses" section.`,
     },
 
     {
-      title: "6. Interactive Support",
+      title: "6. Do I have Interactive Support",
       details:
         "Have questions? Use our built-in discussion forums or join live Q&A sessions with instructors and fellow learners. Get instant help and stay connected throughout your learning journey.",
     },
 
     {
-      title: "7. Earn a Certificate",
+      title: "7. Is I will get Certificate?",
       details:
         "Complete all course requirements, including quizzes and projects, to earn a verified certificate. You can download your certificate from your dashboard and share it on LinkedIn or with potential employers.",
     },
     {
-      title: "8. Stay Updated",
+      title: "8. How can I  stay updated?",
       details:
         "Visit the My Courses section to access your enrolled courses anytime. You can also check for new courses and updates in the Courses section to continue expanding your skills.",
     },
   ];
 
-  //console.log("HowWorks");
   return (
     <section>
       <div>
-        <h1 className="text-3xl text-center font-bold mt-12">How it Works</h1>
+        <h1 className="text-3xl text-center font-bold mt-12">FAQ</h1>
         {procedureList.map((procedure, index) => {
           return <Procedure key={index} work={procedure}></Procedure>;
         })}

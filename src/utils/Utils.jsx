@@ -18,8 +18,8 @@ const ALL_PRODUCTS_URL = `${BASE_URL}/api/products`;
 const PRODUCT_DETAILS_URL = ({ id }) => {
   return `${BASE_URL}/api/products/${id}`;
 };
-const ALL_PRODUCTS_BY_CATEGORIES_URL = ({ category }) => {
-  return `${BASE_URL}/api/categories/products/${category}`;
+const ALL_PRODUCTS_BY_CATEGORIES_URL = ({ cat_title }) => {
+  return `${BASE_URL}/api/categories/products/${cat_title}`;
 };
 
 const BUY_PRODUCT = `${BASE_URL}/api/buy`;

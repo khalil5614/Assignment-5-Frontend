@@ -42,6 +42,20 @@ const router = createBrowserRouter([
           fetch(Utils.PRODUCT_DETAILS_URL({ id: params.id })),
         element: <ProductDetailsPage />,
       },
+      {
+        path: "/catproducts/:cat_title",
+        element: (
+          <PrivateRoute>
+            <ProductsPage />,
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            Utils.ALL_PRODUCTS_BY_CATEGORIES_URL({
+              cat_title: params.cat_title,
+            })
+          ),
+      },
     ],
   },
   {
